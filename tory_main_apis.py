@@ -21,6 +21,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def root():
+    return {"status": "ok"}
+
 # ---- POST endpoints to enqueue messages ----
 
 @app.post("/send/tokenomics")
@@ -80,5 +84,7 @@ async def get_financials_response(uuid: str = Query(...), timestamp: int = Query
 
 if __name__ == "__main__":
     import uvicorn
-    threading.Thread(target=coordinator.run, daemon=True).start()
+    
+    public_url = "https://web-production-c786e.up.railway.app"
+    threading.Thread(target=lambda: coordinator.run(host=public_url), daemon=True).start()
     uvicorn.run(app, host="0.0.0.0", port=8085)
