@@ -85,6 +85,9 @@ if __name__ == "__main__":
     import uvicorn
     import threading
     import asyncio
+    import os
+
+    os.environ["UAGENTS_PORT"] = "8090"
 
     threading.Thread(target=lambda: asyncio.run(coordinator.run_async()), daemon=True).start()
     uvicorn.run(app, host="0.0.0.0", port=8000)
