@@ -1,3 +1,4 @@
+import threading
 from fastapi import FastAPI, Request as FastAPIRequest, Query
 from fastapi.middleware.cors import CORSMiddleware
 from tory_coodinator_agent import (
@@ -10,13 +11,6 @@ from tory_coodinator_agent import (
     financials_responses
 )
 
-import os
-import threading
-import asyncio
-import uvicorn
-
-os.environ["UAGENTS_PORT"] = "8000"
-
 app = FastAPI()
 
 app.add_middleware(
@@ -26,10 +20,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/")
-async def root():
-    return {"status": "ok"}
 
 # ---- POST endpoints to enqueue messages ----
 
@@ -89,5 +79,6 @@ async def get_financials_response(uuid: str = Query(...), timestamp: int = Query
 # ---- Launch agent + FastAPI together ----
 
 if __name__ == "__main__":
-    threading.Thread(target=lambda: asyncio.run(coordinator.run_async()), daemon=True).start()
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import uvicorn
+    threading.Thread(target=coordinator.run, daemon=True).start()
+    uvicorn.run(app, host="0.0.0.0", port=8085)
