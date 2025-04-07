@@ -1,5 +1,4 @@
 import threading
-import asyncio
 from fastapi import FastAPI, Request as FastAPIRequest, Query
 from fastapi.middleware.cors import CORSMiddleware
 from tory_coodinator_agent import (
@@ -85,6 +84,7 @@ async def get_financials_response(uuid: str = Query(...), timestamp: int = Query
 
 if __name__ == "__main__":
     import uvicorn
-    
-    threading.Thread(target=lambda: asyncio.run(coordinator.run_async()), daemon=True).start()
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import threading
+
+    threading.Thread(target=coordinator.run, daemon=True).start()
+    uvicorn.run(app, host="0.0.0.0", port=8085)
