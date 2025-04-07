@@ -10,6 +10,13 @@ from tory_coodinator_agent import (
     financials_responses
 )
 
+import os
+import threading
+import asyncio
+import uvicorn
+
+os.environ["UAGENTS_PORT"] = "8000"
+
 app = FastAPI()
 
 app.add_middleware(
@@ -82,12 +89,5 @@ async def get_financials_response(uuid: str = Query(...), timestamp: int = Query
 # ---- Launch agent + FastAPI together ----
 
 if __name__ == "__main__":
-    import uvicorn
-    import threading
-    import asyncio
-    import os
-
-    os.environ["UAGENTS_PORT"] = "8000"
-
     threading.Thread(target=lambda: asyncio.run(coordinator.run_async()), daemon=True).start()
     uvicorn.run(app, host="0.0.0.0", port=8085)

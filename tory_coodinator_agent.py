@@ -4,9 +4,7 @@ import asyncio
 import requests
 
 coordinator = Agent(
-    name="coordinator_agent", 
-    endpoint=["http://tory-coordinator-agent.up.railway.app:8000"],
-    port=8000,
+    name="coordinator_agent",
     mailbox=True
 )
 
