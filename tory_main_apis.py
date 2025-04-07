@@ -84,6 +84,6 @@ async def get_financials_response(uuid: str = Query(...), timestamp: int = Query
 
 if __name__ == "__main__":
     import uvicorn
-
-    threading.Thread(target=coordinator.run, daemon=True).start()
+    
+    threading.Thread(target=lambda: asyncio.run(coordinator.run_async()), daemon=True).start()
     uvicorn.run(app, host="0.0.0.0", port=8000)

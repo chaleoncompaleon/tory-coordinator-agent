@@ -150,6 +150,3 @@ async def poll_financials(ctx: Context):
         item = await send_financials_queue.get()
         ctx.logger.info(f"📤 Sending financials request: {item}")
         await ctx.send(FINANCIALS_AGENT, FinancialsRequest(**item))
-
-if __name__ == "__main__":
-    asyncio.run(coordinator.run_async())
