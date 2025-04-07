@@ -1,4 +1,3 @@
-import threading
 from fastapi import FastAPI, Request as FastAPIRequest, Query
 from fastapi.middleware.cors import CORSMiddleware
 from tory_coodinator_agent import (
@@ -87,4 +86,4 @@ if __name__ == "__main__":
     import threading
 
     threading.Thread(target=coordinator.run, daemon=True).start()
-    uvicorn.run(app, host="0.0.0.0", port=8085)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
