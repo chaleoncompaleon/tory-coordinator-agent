@@ -5,8 +5,8 @@ import requests
 
 coordinator = Agent(
     name="coordinator_agent", 
-    endpoint=["http://tory-coordinator-agent.up.railway.app:8090"],
-    port=8090,
+    endpoint=["http://tory-coordinator-agent.up.railway.app:8000"],
+    port=8000,
     mailbox=True
 )
 
