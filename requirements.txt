@@ -2,3 +2,4 @@ uagents
 fastapi
 uvicorn
 requests
+threading

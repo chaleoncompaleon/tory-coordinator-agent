@@ -84,7 +84,7 @@ async def get_financials_response(uuid: str = Query(...), timestamp: int = Query
 
 if __name__ == "__main__":
     import uvicorn
-    
-    public_url = "http://tory-coordinator-agent.up.railway.app"
-    threading.Thread(target=lambda: coordinator.run(host=public_url), daemon=True).start()
-    uvicorn.run(app, host="0.0.0.0", port=8085)
+    import threading
+
+    threading.Thread(target=coordinator.run, daemon=True).start()
+    uvicorn.run(app, host="0.0.0.0", port=8000)
